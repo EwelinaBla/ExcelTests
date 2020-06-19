@@ -25,19 +25,19 @@ public class CreateFile {
     }
 
     private void setHeaders() {
-        String[] header = new String[]{"Dane wejściowe", "Wartość", "Jednostka"};
+        String[] firstHeader = new String[]{"Dane wejściowe", "Wartość", "Jednostka"};
         HSSFRow rowHeader = sheet.createRow (0);
-        for (int column = 0; column < header.length; column++) {
+        for (int column = 0; column < firstHeader.length; column++) {
             Cell cell = rowHeader.createCell (column);
-            cell.setCellValue (header[column]);
+            cell.setCellValue (firstHeader[column]);
             cell.setCellStyle (setHeaderStyle ());
         }
 
-        String[] headerSecond = new String[]{"Oznaczenie", "Wartość", "Jednostka"};
+        String[] secondHeader = new String[]{"Oznaczenie", "Wartość", "Jednostka"};
         HSSFRow rowHeaderSecond = sheet.createRow (8);
-        for (int column = 0; column < headerSecond.length; column++) {
+        for (int column = 0; column < secondHeader.length; column++) {
             Cell cell = rowHeaderSecond.createCell (column);
-            cell.setCellValue (headerSecond[column]);
+            cell.setCellValue (secondHeader[column]);
             cell.setCellStyle (setHeaderStyle ());
         }
     }
@@ -53,7 +53,7 @@ public class CreateFile {
 
         String[] columnC = new String[]{"N", "m", "m", "m", "m", "rad"};
         for (int i = 0; i < columnC.length; i++) {
-            Cell cell = sheet.createRow (i + 1).createCell (2);
+            Cell cell = sheet.getRow (i + 1).createCell (2);
             cell.setCellValue (columnC[i]);
             cell.setCellStyle (setDefaultStyle ());
         }
