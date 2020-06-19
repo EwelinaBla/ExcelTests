@@ -46,14 +46,14 @@ public class CreateFile {
 
         String[] columnA = new String[]{"P1", "a", "b", "D1", "D2", "Beta"};
         for (int i = 0; i < columnA.length; i++) {
-            Cell cell = sheet.getRow (i + 1).createCell (0);
+            Cell cell = sheet.createRow (i + 1).createCell (0);
             cell.setCellValue (columnA[i]);
             cell.setCellStyle (setDefaultStyle ());
         }
 
         String[] columnC = new String[]{"N", "m", "m", "m", "m", "rad"};
         for (int i = 0; i < columnC.length; i++) {
-            Cell cell = sheet.getRow (i + 1).createCell (2);
+            Cell cell = sheet.createRow (i + 1).createCell (2);
             cell.setCellValue (columnC[i]);
             cell.setCellStyle (setDefaultStyle ());
         }
@@ -71,7 +71,7 @@ public class CreateFile {
 
     private void setForceData() {
 
-        String[] force = new String[]{"P1y", "P1z", "P2y", "P1z"};
+        String[] force = new String[]{"P1y", "P1z", "P2y", "P2z"};
         String[] valueForce = new String[]{"ROUND((B2*COS(B7)),2)", "ROUND((B2*SIN(B7)),2)", "ROUND((B13*TAN(B7)),2)", "ROUND((B10*(B5/B6)),2)"};
 
         for (int i = 0; i < force.length; i++) {
