@@ -113,35 +113,26 @@ public class FileExcelTest extends BaseTest {
     public void checkStaticData() {
         openFile ();
         this.sheet = workbook.getSheet ("Static");
-        ArrayList<String> staticDataFromFirstTable = new ArrayList<> ();
+
+        StringBuilder staticDataFromFirstTable = new StringBuilder ();
         for (int i = 0; i < 6; i++) {
             String dataFromFirstTable = sheet.getRow (i + 1).getCell (0).getStringCellValue ();
-            staticDataFromFirstTable.add (dataFromFirstTable);
+            staticDataFromFirstTable.append (dataFromFirstTable).append (" ");
         }
 
-        ArrayList<String> staticDataFromSecondTable = new ArrayList<> ();
-        for (int i = 0; i < 6; i++) {
-            String dataFromFirstTable = sheet.getRow (i + 1).getCell (0).getStringCellValue ();
-            staticDataFromSecondTable.add (dataFromFirstTable);
+        StringBuilder staticDataFromSecondTable = new StringBuilder ();
+        for (int i = 0; i < 4; i++) {
+            String dataFromSecondTable = sheet.getRow (i + 9).getCell (0).getStringCellValue ();
+            staticDataFromSecondTable.append (dataFromSecondTable).append (" ");
         }
 
-        //var strings = List.of("foo", "bar", "baz");
+        String expectedStaticDataFromFirstTable = String.join (" ", "P1", "a", "b", "D1", "D2", "Beta");
+        String expectedStaticDataFromSecondTable = String.join (" ", "P1y", "P1z", "P2y", "P2z");
 
-
-        //List<String> strings = List.of ("P1y, P1z, P2y, P2z");
-
-//        ArrayList<String> expextedStaticDataFromFirstTable= new ArrayList<>(List.of("P1, a, b, D1, D2, Beta"));
-//        ArrayList<String> expextedStaticDataFromSecondTable= new ArrayList<>(List.of("P1y", "P1z", "P2y", "P2z"));P2z
-//        ArrayList<String> friends =  new ArrayList<String>(Arrays.asList("Peter", "Paul"));
-//
-
-        ArrayList<String> places = Lists.newArrayList("Buenos Aires", "Córdoba", "La Plata");
-        System.out.println (places);
-//        ArrayList<String> strings = new ArrayList<>(List.of("foo", "bar"));
-////        Assertions.assertAll (
-//                ()-> Assertions.assertTrue (staticDataFromFirstTable.equals (expextedStaticDataFromFirstTable)),
-//                ()-> Assertions.assertTrue (staticDataFromSecondTable.equals (expextedStaticDataFromSecondTable))
-//        );
+        Assertions.assertAll (
+                () -> Assertions.assertEquals (expectedStaticDataFromFirstTable, staticDataFromFirstTable.substring (0, staticDataFromFirstTable.length ()-1)),
+                () -> Assertions.assertEquals (expectedStaticDataFromSecondTable, staticDataFromSecondTable.substring (0, staticDataFromSecondTable.length ()-1))
+        );
     }
 
     @Test
