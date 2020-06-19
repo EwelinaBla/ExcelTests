@@ -14,8 +14,8 @@ import java.io.IOException;
 
 
 public class CreateFile {
-    HSSFWorkbook workbook = new HSSFWorkbook ();
-    HSSFSheet sheet = workbook.createSheet ("Static");
+    private HSSFWorkbook workbook = new HSSFWorkbook ();
+    private HSSFSheet sheet = workbook.createSheet ("Static");
 
     public void createFileExcel(String[] columnB) {
         setHeaders ();
@@ -65,7 +65,7 @@ public class CreateFile {
                 cell.setCellStyle (setDefaultStyle ());
             }
         } catch (NumberFormatException e) {
-
+            System.out.println (e.getMessage ());
         }
     }
 
@@ -127,64 +127,19 @@ public class CreateFile {
         cellStyle.setWrapText (true);
     }
 
-
     private void outFile() {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream (new File ("C:\\Projects\\ProjectExcelFile\\calculator.xls"));
             workbook.write (fileOutputStream);
             fileOutputStream.close ();
         } catch (FileNotFoundException e) {
-            e.printStackTrace ();
+            System.out.println (e.getMessage ());
         } catch (IOException e) {
-            e.printStackTrace ();
+            System.out.println ("Błąd zapisu");
+            System.exit (1);
         }
     }
-
-
 }
 
 
-//        HSSFRow rowP1y = sheet.createRow (9);
-//        rowP1y.createCell (0).setCellValue ("P1y");
-//        rowP1y.createCell (1).setCellFormula ("B2*COS(B7)");
-//        rowP1y.createCell (2).setCellValue ("N");
-//
-//
-//        sheet.createRow (10).createCell (0).setCellValue ("P1z");
-//        sheet.createRow (10).createCell (1).setCellFormula ("B2*SIN(B7)");
-//        sheet.createRow (10).createCell (2).setCellValue ("N");
-//
-//        sheet.createRow (11).createCell (0).setCellValue ("P2y");
-//        sheet.createRow (11).createCell (1).setCellFormula ("B13*TAN(B7)");
-//        sheet.createRow (11).createCell (2).setCellValue ("N");
-//
-//        sheet.createRow (12).createCell (0).setCellValue ("P1z");
-//        sheet.createRow (12).createCell (1).setCellFormula ("B10*(B5/B6)");
-//        sheet.createRow (12).createCell (2).setCellValue ("N");
-
-
-//        HashMap<Integer, String[]> inputData = new HashMap<> ();
-//        inputData.put (0, new String[]{"Dane wejściowe", "Wartość", "Jednostka"});
-//        inputData.put (1, new String[]{"P1", , "N"});
-//        inputData.put (2, new String[]{"a", valueA, "m"});
-//        inputData.put (3, new String[]{"b", valueB, "m"});
-//        inputData.put (4, new String[]{"D1", valueD1, "m"});
-//        inputData.put (5, new String[]{"D2", valueD2, "m"});
-//        inputData.put (6, new String[]{"Beta", valueBeta, "rad"});
-//        inputData.put (8, new String[]{"Oznaczenie", "Wartość", "Jednostka"});
-//        inputData.put (9, new String[]{"P1y", String.valueOf (valueP1y), "N"});
-//            inputData.put (10, new String[]{"P1z", String.valueOf (valueP1z), "N"});
-//            inputData.put (11, new String[]{"P2y", String.valueOf (valueP2y), "N"});
-//            inputData.put (12, new String[]{"P2z", String.valueOf (valueP2z), "N"});
-//
-//        Set<Integer> keysInputData = inputData.keySet ();
-
-//        for (Integer key : keysInputData) {
-//            HSSFRow row = sheet.createRow (key);
-//            String[] valuesKeys = inputData.get (key);
-//            int cellum = 0;
-//            for (String valueKey : valuesKeys) {
-//                Cell cell = row.createCell (cellum++);
-//                cell.setCellValue (valueKey);
-//            }
 

@@ -1,7 +1,5 @@
 package Tests;
 
-
-import com.google.common.collect.Lists;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.junit.jupiter.api.Assertions;
@@ -54,18 +52,16 @@ public class FileExcelTest extends BaseTest {
     public void checkFormula() {
         openFile ();
         this.sheet = workbook.getSheetAt (0);
+
         String valueP1y = sheet.getRow (9).getCell (1).getCellFormula ();
-        String expectedValueP1y = "ROUND((B2*COS(B7)),2)";
-
         String valueP1z = sheet.getRow (10).getCell (1).getCellFormula ();
-        String expectedValueP1z = "ROUND((B2*SIN(B7)),2)";
-
         String valueP2y = sheet.getRow (11).getCell (1).getCellFormula ();
-        String expectedValueP2y = "ROUND((B13*TAN(B7)),2)";
-
         String valueP2z = sheet.getRow (12).getCell (1).getCellFormula ();
-        String expectedValueP2z = "ROUND((B10*(B5/B6)),2)";
 
+        String expectedValueP1y = "ROUND((B2*COS(B7)),2)";
+        String expectedValueP1z = "ROUND((B2*SIN(B7)),2)";
+        String expectedValueP2y = "ROUND((B13*TAN(B7)),2)";
+        String expectedValueP2z = "ROUND((B10*(B5/B6)),2)";
 
         Assertions.assertAll (
                 () -> Assertions.assertEquals (expectedValueP1y, valueP1y),
@@ -94,6 +90,7 @@ public class FileExcelTest extends BaseTest {
             String unitOfMeasure = sheet.getRow (i + 2).getCell (2).getStringCellValue ();
             unitOfMeasures.add (unitOfMeasure);
         }
+
         String expectedUnitOfAngle = "rad";
         String expectedPoundal = "N";
         String expectedUnitOfMeasure = "m";
@@ -146,7 +143,6 @@ public class FileExcelTest extends BaseTest {
             namesFirstHeader.add (nameFirstHeader);
         }
 
-
         ArrayList<String> namesSecondHeader = new ArrayList<> ();
         for (int i = 0; i < 3; i++) {
             String nameSecondHeader = sheet.getRow (8).getCell (i).getStringCellValue ();
@@ -169,34 +165,41 @@ public class FileExcelTest extends BaseTest {
 
         HSSFCellStyle headerStyle = sheet.getRow (0).getCell (0).getCellStyle ();
         int foregroundColorHeader = headerStyle.getFillForegroundColor ();
-        int aligmantHeader=headerStyle.getAlignment ();
-        boolean isWraptextHeader=headerStyle.getWrapText ();
-        String fontNameHeader =headerStyle.getFont (workbook).getFontName ();
-        int colorFontIndeksHeader = headerStyle.getFont (workbook).getColor ();
-        int boldweightFontHeader = headerStyle.getFont (workbook).getBoldweight ();
+        int alignmentHeader = headerStyle.getAlignment ();
+        boolean isWrapTextHeader = headerStyle.getWrapText ();
+        String fontNameHeader = headerStyle.getFont (workbook).getFontName ();
+        int colorFontIndexHeader = headerStyle.getFont (workbook).getColor ();
+        int boldWightFontHeader = headerStyle.getFont (workbook).getBoldweight ();
         boolean isItalicFontHeader = headerStyle.getFont (workbook).getItalic ();
-
 
         HSSFCellStyle dataStyle = sheet.getRow (1).getCell (0).getCellStyle ();
         String fontNameData = dataStyle.getFont (workbook).getFontName ();
-        int colorFontIndeksData = dataStyle.getFont (workbook).getBoldweight ();
+        int boldWeightFontData = dataStyle.getFont (workbook).getBoldweight ();
         boolean isItalicFontData = dataStyle.getFont (workbook).getItalic ();
 
         int expectedForegroundColorHeader = 18;
-        int expextedAligmantHeader = 2;
-        boolean expectedIsWraptextHeader = true;
+        int expectedAlignmentHeader = 2;
+        boolean expectedIsWrapTextHeader = true;
         String expectedFontNameHeader = "Arial";
-        int expectedColorFontIndeksHeader = 10;
-        int expectedBoldweightFontHeader = 700;
+        int expectedColorFontIndexHeader = 10;
+        int expectedBoldWeightFontHeader = 700;
         boolean expectedIsItalicFontHeader = true;
         String expectedFontNameData = "Arial";
-        int expectedColorFontIndeksData = 10;
+        int expectedBoldWeightFontData = 400;
         boolean expectedIsItalicFontData = false;
 
         Assertions.assertAll (
-                ()-> Assertions.assertTrue (foregroundColorHeader==expectedForegroundColorHeader)
+                () -> Assertions.assertTrue (foregroundColorHeader == expectedForegroundColorHeader),
+                () -> Assertions.assertTrue (alignmentHeader == expectedAlignmentHeader),
+                () -> Assertions.assertTrue (isWrapTextHeader == expectedIsWrapTextHeader),
+                () -> Assertions.assertTrue (fontNameHeader.equals (expectedFontNameHeader)),
+                () -> Assertions.assertTrue (colorFontIndexHeader == expectedColorFontIndexHeader),
+                () -> Assertions.assertTrue (boldWightFontHeader == expectedBoldWeightFontHeader),
+                () -> Assertions.assertTrue (isItalicFontHeader == expectedIsItalicFontHeader),
+                () -> Assertions.assertTrue (fontNameData.equals (expectedFontNameData)),
+                () -> Assertions.assertTrue (boldWeightFontData == expectedBoldWeightFontData),
+                () -> Assertions.assertTrue (isItalicFontData == expectedIsItalicFontData)
         );
     }
 }
-
 
