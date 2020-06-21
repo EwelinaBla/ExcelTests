@@ -13,15 +13,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class CreateFile {
+public class CreateFileExcelCalculator {
     private HSSFWorkbook workbook = new HSSFWorkbook ();
     private HSSFSheet sheet = workbook.createSheet ("Static");
 
-    public void createFileExcel(String[] columnB) {
+    public void createFileExcel(String[] columnB, String file) {
         setHeaders ();
         setInputStaticData (columnB);
         setForceData ();
-        outFile ();
+        closeFile (new File (file));
     }
 
     private void setHeaders() {
@@ -127,9 +127,9 @@ public class CreateFile {
         cellStyle.setWrapText (true);
     }
 
-    private void outFile() {
+    private void closeFile(File file) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream (new File ("C:\\Projects\\ProjectExcelFile\\calculator.xls"));
+            FileOutputStream fileOutputStream = new FileOutputStream (file);
             workbook.write (fileOutputStream);
             fileOutputStream.close ();
         } catch (FileNotFoundException e) {
