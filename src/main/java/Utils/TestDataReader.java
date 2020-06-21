@@ -1,28 +1,23 @@
 package Utils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-public class TestDataReader {
-    Properties properties;
+public class TestDataReader extends FileReader {
     private TestData testData;
+    private String fileLocation;
 
-    public void loadFile(String locationFile) {
-        properties = new Properties();
-        try {
-            properties.load(new FileInputStream(locationFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public TestDataReader(String fileLocation) {
+        super (fileLocation);
+        this.fileLocation = getFileLocation ();
     }
 
-    public void loadData() {
-         testData = new TestData(properties);
+    void loadData() {
+        testData = new TestData (properties);
     }
 
     public TestData getTestData() {
         return testData;
     }
 
+    public String getFileLocation() {
+        return fileLocation;
+    }
 }
