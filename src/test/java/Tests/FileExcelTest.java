@@ -3,6 +3,8 @@ package Tests;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,10 +12,15 @@ import java.util.ArrayList;
 public class FileExcelTest extends BaseTest {
     private HSSFSheet sheet;
 
-    @Test
-    public void checkNameOfSheet() {
+    @BeforeAll
+    @DisplayName("Inicjalizacja testów")
+    private void init() {
         openFile ();
         this.sheet = workbook.getSheetAt (0);
+    }
+
+    @Test
+    public void checkNameOfSheet() {
         String nameSheet = sheet.getSheetName ();
 
         Assertions.assertEquals ("Static", nameSheet);
@@ -21,7 +28,6 @@ public class FileExcelTest extends BaseTest {
 
     @Test
     public void checkNumberOfSheets() {
-        openFile ();
         int numberSheets = workbook.getNumberOfSheets ();
 
         Assertions.assertEquals (1, numberSheets);
@@ -29,8 +35,6 @@ public class FileExcelTest extends BaseTest {
 
     @Test
     public void checkInputData() {
-        openFile ();
-        this.sheet = workbook.getSheetAt (0);
         double valueP1 = sheet.getRow (1).getCell (1).getNumericCellValue ();
         double valueA = sheet.getRow (2).getCell (1).getNumericCellValue ();
         double valueB = sheet.getRow (3).getCell (1).getNumericCellValue ();
@@ -50,9 +54,6 @@ public class FileExcelTest extends BaseTest {
 
     @Test
     public void checkFormula() {
-        openFile ();
-        this.sheet = workbook.getSheetAt (0);
-
         String valueP1y = sheet.getRow (9).getCell (1).getCellFormula ();
         String valueP1z = sheet.getRow (10).getCell (1).getCellFormula ();
         String valueP2y = sheet.getRow (11).getCell (1).getCellFormula ();
@@ -73,9 +74,6 @@ public class FileExcelTest extends BaseTest {
 
     @Test
     public void checkUnit() {
-        openFile ();
-        this.sheet = workbook.getSheet ("Static");
-
         String poundalForFirstTable = sheet.getRow (1).getCell (2).getStringCellValue ();
         String unitOfAngle = sheet.getRow (6).getCell (2).getStringCellValue ();
 
@@ -108,9 +106,6 @@ public class FileExcelTest extends BaseTest {
 
     @Test
     public void checkStaticData() {
-        openFile ();
-        this.sheet = workbook.getSheet ("Static");
-
         StringBuilder staticDataFromFirstTable = new StringBuilder ();
         for (int i = 0; i < 6; i++) {
             String dataFromFirstTable = sheet.getRow (i + 1).getCell (0).getStringCellValue ();
@@ -127,16 +122,13 @@ public class FileExcelTest extends BaseTest {
         String expectedStaticDataFromSecondTable = String.join (" ", "P1y", "P1z", "P2y", "P2z");
 
         Assertions.assertAll (
-                () -> Assertions.assertEquals (expectedStaticDataFromFirstTable, staticDataFromFirstTable.substring (0, staticDataFromFirstTable.length ()-1)),
-                () -> Assertions.assertEquals (expectedStaticDataFromSecondTable, staticDataFromSecondTable.substring (0, staticDataFromSecondTable.length ()-1))
+                () -> Assertions.assertEquals (expectedStaticDataFromFirstTable, staticDataFromFirstTable.substring (0, staticDataFromFirstTable.length () - 1)),
+                () -> Assertions.assertEquals (expectedStaticDataFromSecondTable, staticDataFromSecondTable.substring (0, staticDataFromSecondTable.length () - 1))
         );
     }
 
     @Test
     public void checkNamesHeaders() {
-        openFile ();
-        this.sheet = workbook.getSheet ("Static");
-
         ArrayList<String> namesFirstHeader = new ArrayList<> ();
         for (int i = 0; i < 3; i++) {
             String nameFirstHeader = sheet.getRow (0).getCell (i).getStringCellValue ();
@@ -160,9 +152,6 @@ public class FileExcelTest extends BaseTest {
 
     @Test
     public void checkStyle() {
-        openFile ();
-        this.sheet = workbook.getSheet ("Static");
-
         HSSFCellStyle headerStyle = sheet.getRow (0).getCell (0).getCellStyle ();
         int foregroundColorHeader = headerStyle.getFillForegroundColor ();
         int alignmentHeader = headerStyle.getAlignment ();
@@ -202,4 +191,3 @@ public class FileExcelTest extends BaseTest {
         );
     }
 }
-
