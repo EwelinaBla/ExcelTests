@@ -17,11 +17,11 @@ public class CreateFileExcelCalculator {
     private HSSFWorkbook workbook = new HSSFWorkbook ();
     private HSSFSheet sheet = workbook.createSheet ("Static");
 
-    public void createFileExcel(String[] columnB, String file) {
+    public void createFileExcel(String[] columnB, String path) {
         setHeaders ();
         setInputStaticData (columnB);
-        setForceData ();
-        closeFile (new File (file));
+        setForcesData ();
+        saveToFile (path);
     }
 
     private void setHeaders() {
@@ -65,19 +65,19 @@ public class CreateFileExcelCalculator {
             }
     }
 
-    private void setForceData() {
+    private void setForcesData() {
 
-        String[] force = new String[]{"P1y", "P1z", "P2y", "P2z"};
-        String[] valueForce = new String[]{"ROUND((B2*COS(B7)),2)", "ROUND((B2*SIN(B7)),2)", "ROUND((B13*TAN(B7)),2)", "ROUND((B10*(B5/B6)),2)"};
+        String[] forces = new String[]{"P1y", "P1z", "P2y", "P2z"};
+        String[] valuesForces = new String[]{"ROUND((B2*COS(B7)),2)", "ROUND((B2*SIN(B7)),2)", "ROUND((B13*TAN(B7)),2)", "ROUND((B10*(B5/B6)),2)"};
 
-        for (int i = 0; i < force.length; i++) {
+        for (int i = 0; i < forces.length; i++) {
             HSSFRow row = sheet.createRow (i + 9);
             Cell cellColumnA = row.createCell (0);
-            cellColumnA.setCellValue (force[i]);
+            cellColumnA.setCellValue (forces[i]);
             cellColumnA.setCellStyle (setDefaultStyle ());
 
             Cell cellColumnB = row.createCell (1);
-            cellColumnB.setCellFormula (valueForce[i]);
+            cellColumnB.setCellFormula (valuesForces[i]);
             cellColumnB.setCellStyle (setDefaultStyle ());
 
             Cell cellColumnC = row.createCell (2);
@@ -94,7 +94,7 @@ public class CreateFileExcelCalculator {
         font.setColor (Font.COLOR_RED);
 
         HSSFCellStyle style = workbook.createCellStyle ();
-        borderStyle (style);
+        setBorderStyle (style);
         style.setFillForegroundColor (HSSFColor.DARK_BLUE.index);
         style.setFillPattern ((CellStyle.SOLID_FOREGROUND));
         style.setAlignment (CellStyle.ALIGN_CENTER);
@@ -105,12 +105,12 @@ public class CreateFileExcelCalculator {
 
     private CellStyle setDefaultStyle() {
         HSSFCellStyle defaultStyle = workbook.createCellStyle ();
-        borderStyle (defaultStyle);
+        setBorderStyle (defaultStyle);
         sheet.setDefaultColumnWidth (15);
         return defaultStyle;
     }
 
-    private void borderStyle(CellStyle cellStyle) {
+    private void setBorderStyle(CellStyle cellStyle) {
         cellStyle.setBorderBottom (CellStyle.BORDER_THIN);
         cellStyle.setBottomBorderColor (IndexedColors.BLACK.getIndex ());
         cellStyle.setBorderTop (CellStyle.BORDER_THIN);
@@ -123,9 +123,9 @@ public class CreateFileExcelCalculator {
         cellStyle.setWrapText (true);
     }
 
-    private void closeFile(File file) {
+    private void saveToFile(String path) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream (file);
+            FileOutputStream fileOutputStream = new FileOutputStream (new File (path));
             workbook.write (fileOutputStream);
             fileOutputStream.close ();
         } catch (FileNotFoundException e) {
