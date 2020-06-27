@@ -58,15 +58,11 @@ public class CreateFileExcelCalculator {
             cell.setCellStyle (setDefaultStyle ());
         }
 
-        try {
-            for (int i = 0; i < columnB.length; i++) {
-                Cell cell = sheet.getRow (i + 1).createCell (1);
-                cell.setCellValue (Double.parseDouble (columnB[i]));
-                cell.setCellStyle (setDefaultStyle ());
+        for (int i = 0; i < columnB.length; i++) {
+            Cell cell = sheet.getRow (i + 1).createCell (1);
+            cell.setCellValue (Double.parseDouble (columnB[i]));
+            cell.setCellStyle (setDefaultStyle ());
             }
-        } catch (NumberFormatException e) {
-            System.out.println (e.getMessage ());
-        }
     }
 
     private void setForceData() {
