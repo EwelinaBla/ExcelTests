@@ -25,7 +25,6 @@ public class FileExcelTest extends BaseTest {
 
         Assertions.assertEquals ("Static", nameSheet);
     }
-
     @Test
     public void checkNumberOfSheets() {
         int numberSheets = workbook.getNumberOfSheets ();

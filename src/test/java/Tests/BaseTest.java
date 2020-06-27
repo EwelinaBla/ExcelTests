@@ -21,7 +21,6 @@ public class BaseTest {
             System.out.println (e.getMessage ());
         } catch (IOException io) {
             System.out.println ("Błąd odczytu");
-            System.exit (1);
         }
     }
 }
