@@ -13,10 +13,8 @@ public class BaseTest {
     HSSFWorkbook workbook;
 
     public void openFile() {
-        try {
-            FileInputStream file = new FileInputStream (new File ("C:\\Projects\\ProjectExcelFile\\test.xls"));
+        try (FileInputStream file = new FileInputStream (new File ("C:\\Projects\\ProjectExcelFile\\test.xls"))){
             this.workbook = new HSSFWorkbook (file);
-            file.close ();
         } catch (FileNotFoundException e) {
             System.out.println (e.getMessage ());
         } catch (IOException io) {

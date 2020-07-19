@@ -124,10 +124,8 @@ public class CreateFileExcelCalculator {
     }
 
     private void saveToFile(String path) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream (new File (path));
+        try(FileOutputStream fileOutputStream = new FileOutputStream (new File (path))) {
             workbook.write (fileOutputStream);
-            fileOutputStream.close ();
         } catch (FileNotFoundException e) {
             System.out.println (e.getMessage ());
         } catch (IOException e) {
